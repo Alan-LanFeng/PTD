@@ -14,7 +14,8 @@ Shuhan Tan<sup>2</sup>, Alexandre Alahi<sup>1</sup>, Boris Ivanovic<sup>2</sup>,
 PTD distills a many-step video generator into a four-step or six-step student. Each student step predicts a curved, polynomial segment of
 the teacher's trajectory and is trained against the teacher's velocity read along the student's own predicted path; at inference each step
 jumps straight to the segment's end point. With a single LoRA on MiniMax-H3, a 33B model that generates video and sound together, a
-five-second 1344×768 clip with sound takes 31 s in four steps or 46 s in six, instead of 343 s for the 50-step teacher.
+five-second 1344×768 clip with sound takes 31 s in four steps or 46 s in six, instead of 343 s for the 50-step teacher (sampling time on
+8 H100 GPUs, VAE decoding excluded).
 
 The code and weights will be released in this repository.
 
@@ -27,10 +28,10 @@ The code and weights will be released in this repository.
 Open `docs/index.html` directly, or serve the folder:
 
 ```bash
-npx http-server docs -p 8000
+npx http-server docs -p 8000 -a 127.0.0.1 -c-1
 ```
 
-Then open http://localhost:8000. `python3 -m http.server` also works, but it does not support byte-range requests, so the film's chapter
+Then open http://localhost:8000 (`-a 127.0.0.1` keeps the server local to your machine, `-c-1` turns off caching so edits show on reload). `python3 -m http.server` also works, but it does not support byte-range requests, so the film's chapter
 buttons cannot seek there.
 
 ## Citation
