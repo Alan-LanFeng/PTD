@@ -1,0 +1,13 @@
+.DS_Store
+._*
+Thumbs.db
+__pycache__/
+*.pyc
+.venv/
+.idea/
+.vscode/
+.claude/
+
+# Local build metadata, never commit
+SOURCES.json
+MANIFEST.md5
