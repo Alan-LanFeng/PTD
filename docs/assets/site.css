@@ -55,7 +55,6 @@ figcaption { color: var(--mist); margin-top: 14px; max-width: 80ch; }
 .authors a:hover { border-color: var(--light); }
 .authors sup, .affils sup { font-size: .7em; line-height: 0; color: var(--mist); margin-left: 1px; }
 .affils { margin-top: 8px; font-size: 15px; color: var(--mist); }
-.authors .tba { color: var(--mist); font-size: 15px; }
 .links { display: flex; flex-wrap: wrap; gap: 10px; margin: 26px 0 0; }
 .btn { display: inline-flex; align-items: center; gap: 9px; padding: 10px 16px 10px 14px; border: 1px solid #2b2b2b; border-radius: 999px; background: #0b0b0b;
        font: 500 15px/1 var(--sans); color: var(--light); text-decoration: none; transition: border-color .2s, background-color .2s; }

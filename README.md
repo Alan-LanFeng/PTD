@@ -2,20 +2,25 @@
 
 Few-step distillation for video and sound.
 
-| | |
-|---|---|
-| Project page | [`docs/`](docs/) (not published yet) |
-| Paper | coming soon |
-| Code | coming soon |
-| Weights | coming soon |
+Lan Feng<sup>1,2</sup>, Peter Karkus<sup>2</sup>, Maximilian Igl<sup>2</sup>, Julius Berner<sup>2</sup>, Yuxiao Chen<sup>3</sup>,
+Shuhan Tan<sup>2</sup>, Alexandre Alahi<sup>1</sup>, Boris Ivanovic<sup>2</sup>, Marco Pavone<sup>2</sup>
+
+<sup>1</sup>EPFL, <sup>2</sup>NVIDIA, <sup>3</sup>California Institute of Technology
+
+**[Project page](https://alan-lanfeng.github.io/PTD/)** · Paper (coming soon) · Code (coming soon) · Weights (coming soon)
+
+## Overview
+
+PTD distills a many-step video generator into a four-step or six-step student. Each student step predicts a curved, polynomial segment of
+the teacher's trajectory and is trained against the teacher's velocity read along the student's own predicted path; at inference each step
+jumps straight to the segment's end point. With a single LoRA on MiniMax-H3, a 33B model that generates video and sound together, a
+five-second 1344×768 clip with sound takes 31 s in four steps or 46 s in six, instead of 343 s for the 50-step teacher.
+
+The code and weights will be released in this repository.
 
 ## Repository layout
 
-- `docs/`: the project website. It is a static site with relative paths only and no external requests, so GitHub Pages can serve it as is
-  (Settings → Pages → Deploy from a branch → `main` / `docs`). Turning Pages on publishes the site to anyone with the URL, even while this
-  repository is private (and Pages on a private repository needs a paid plan), so leave it off until the checklist below is done.
-
-The code will be added here later.
+- `docs/`: the project website, served by GitHub Pages. It is a static site with relative paths and no external requests.
 
 ## Preview the website locally
 
@@ -25,19 +30,22 @@ Open `docs/index.html` directly, or serve the folder:
 npx http-server docs -p 8000
 ```
 
-Then open http://localhost:8000. `python3 -m http.server` also serves the page, but it does not support byte-range requests, so the film's
-chapter buttons and scrubbing jump back to 0:00 there. GitHub Pages supports range requests, so the published site is not affected.
+Then open http://localhost:8000. `python3 -m http.server` also works, but it does not support byte-range requests, so the film's chapter
+buttons cannot seek there.
 
-## Before making the repository or the site public
+## Citation
 
-- Fill in the author list in the page header in `docs/index.html`. The comment there shows the markup.
-- Turn on the Code and Weights buttons: add `href`, remove `role` and `aria-disabled`, and drop the "Coming soon" tag.
-- Rewrite the BibTeX entry in the Citation section of the page: the cite key `anonymous2026ptd`, `author = {Anonymous}` and
-  `note = {Under review}`, with the final paper title and venue or arXiv id.
-- Remove `<meta name="robots" content="noindex,nofollow">` from `docs/index.html` if the page should be indexed by search engines.
-- Make `og:image` an absolute URL of the published site (for example `https://alan-lanfeng.github.io/PTD/media/film/og.jpg`) so that link
-  previews show the image, and consider adding `og:url` and `<meta name="twitter:card" content="summary_large_image">`.
-- Add a `LICENSE`. The fonts are under the SIL Open Font License and the film music under the Mixkit Stock Music Free License (credited in
-  the page footer).
-- Note that `docs/media/film/ptd-film.mp4` is 87 MiB. GitHub accepts files up to 100 MiB but warns above 50 MiB; keep it out of Git LFS,
-  because GitHub Pages does not serve LFS files.
+```bibtex
+@misc{feng2026ptd,
+  title  = {Parametric Trajectory Distillation for Few-Step Video Generation},
+  author = {Feng, Lan and Karkus, Peter and Igl, Maximilian and Berner, Julius and Chen, Yuxiao and
+            Tan, Shuhan and Alahi, Alexandre and Ivanovic, Boris and Pavone, Marco},
+  year   = {2026},
+  note   = {Under review}
+}
+```
+
+## Third-party assets
+
+- Fonts: Newsreader and Inter Tight, under the SIL Open Font License 1.1 ([`docs/media/fonts/OFL.txt`](docs/media/fonts/OFL.txt)).
+- Film music: "Sonor #2" by Eugenio Mininni, Mixkit Stock Music Free License.
