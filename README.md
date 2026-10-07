@@ -1,38 +1,30 @@
-# Parametric Trajectory Distillation (PTD)
+<div align="center">
 
-Few-step distillation for video and sound.
+# Parametric Trajectory Distillation for Few-Step Video Generation
 
-Lan Feng<sup>1,2</sup>, Peter Karkus<sup>2</sup>, Maximilian Igl<sup>2</sup>, Julius Berner<sup>2</sup>, Yuxiao Chen<sup>2</sup>,
-Shuhan Tan<sup>2</sup>, Alexandre Alahi<sup>1</sup>, Boris Ivanovic<sup>2</sup>, Marco Pavone<sup>2,3</sup>
+**Lan Feng**<sup>1,2</sup> &nbsp; **Peter Karkus**<sup>2</sup> &nbsp; **Maximilian Igl**<sup>2</sup> &nbsp; **Julius Berner**<sup>2</sup> &nbsp; **Yuxiao Chen**<sup>2</sup><br>
+**Shuhan Tan**<sup>2</sup> &nbsp; **Alexandre Alahi**<sup>1</sup> &nbsp; **Boris Ivanovic**<sup>2</sup> &nbsp; **Marco Pavone**<sup>2,3</sup>
 
-<sup>1</sup>EPFL, <sup>2</sup>NVIDIA, <sup>3</sup>Stanford University
+<sup>1</sup>EPFL &nbsp;&nbsp; <sup>2</sup>NVIDIA &nbsp;&nbsp; <sup>3</sup>Stanford University
 
-**[Project page](https://alan-lanfeng.github.io/PTD/)** · Paper (coming soon) · Code (coming soon) · Weights (coming soon)
+[**Project page**](https://alan-lanfeng.github.io/PTD/) &nbsp;·&nbsp; **Paper** (coming soon) &nbsp;·&nbsp; **Code** (coming soon) &nbsp;·&nbsp; [**Citation**](#citation)
 
-## Overview
+</div>
 
-PTD distills a many-step video generator into a four-step or six-step student. Each student step predicts a curved, polynomial segment of
-the teacher's trajectory and is trained against the teacher's velocity read along the student's own predicted path; at inference each step
-jumps straight to the segment's end point. With a single LoRA on MiniMax-H3, a 33B model that generates video and sound together, a
-five-second 1344×768 clip with sound takes 31 s in four steps or 46 s in six, instead of 343 s for the 50-step teacher (sampling time on
-8 H100 GPUs, VAE decoding excluded).
+**PTD is a few-step distillation method for video diffusion and flow models.** One student evaluation predicts a whole
+denoising segment as a polynomial curve. The teacher is queried on that curve, and a single least-squares loss trains
+the student. At inference only the segment's mean velocity is used, so the distilled model keeps the teacher's
+architecture.
 
-The code and weights will be released in this repository.
+This repository hosts the project page; the code will be released separately.
 
-## Repository layout
+## Project page
 
-- `docs/`: the project website, served by GitHub Pages. It is a static site with relative paths and no external requests.
-
-## Preview the website locally
-
-Open `docs/index.html` directly, or serve the folder:
+`docs/` is a static site served by GitHub Pages. To preview it locally:
 
 ```bash
-npx http-server docs -p 8000 -a 127.0.0.1 -c-1
+npx http-server docs -p 8000 -a 127.0.0.1 -c-1   # then open http://localhost:8000
 ```
-
-Then open http://localhost:8000 (`-a 127.0.0.1` keeps the server local to your machine, `-c-1` turns off caching so edits show on reload). `python3 -m http.server` also works, but it does not support byte-range requests, so the film's chapter
-buttons cannot seek there.
 
 ## Citation
 
@@ -48,5 +40,6 @@ buttons cannot seek there.
 
 ## Third-party assets
 
-- Fonts: Newsreader and Inter Tight, under the SIL Open Font License 1.1 ([`docs/media/fonts/OFL.txt`](docs/media/fonts/OFL.txt)).
+- Videos: generated with MiniMax-H3 and Wan2.1, subject to the licenses of those models.
+- Fonts: Newsreader and Inter Tight, SIL Open Font License 1.1 ([`docs/media/fonts/OFL.txt`](docs/media/fonts/OFL.txt)).
 - Film music: "Sonor #2" by Eugenio Mininni, Mixkit Stock Music Free License.
