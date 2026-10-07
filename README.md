@@ -2,10 +2,10 @@
 
 Few-step distillation for video and sound.
 
-Lan Feng<sup>1,2</sup>, Peter Karkus<sup>2</sup>, Maximilian Igl<sup>2</sup>, Julius Berner<sup>2</sup>, Yuxiao Chen<sup>3</sup>,
-Shuhan Tan<sup>2</sup>, Alexandre Alahi<sup>1</sup>, Boris Ivanovic<sup>2</sup>, Marco Pavone<sup>2</sup>
+Lan Feng<sup>1,2</sup>, Peter Karkus<sup>2</sup>, Maximilian Igl<sup>2</sup>, Julius Berner<sup>2</sup>, Yuxiao Chen<sup>2</sup>,
+Shuhan Tan<sup>2</sup>, Alexandre Alahi<sup>1</sup>, Boris Ivanovic<sup>2</sup>, Marco Pavone<sup>2,3</sup>
 
-<sup>1</sup>EPFL, <sup>2</sup>NVIDIA, <sup>3</sup>California Institute of Technology
+<sup>1</sup>EPFL, <sup>2</sup>NVIDIA, <sup>3</sup>Stanford University
 
 **[Project page](https://alan-lanfeng.github.io/PTD/)** · Paper (coming soon) · Code (coming soon) · Weights (coming soon)
 
