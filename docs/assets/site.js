@@ -171,6 +171,42 @@
     const w = DATA.ref.worlds[+b.dataset.k]; refV.poster = w.poster; refV.dataset.src = w.video; refV.src = w.video; refV.play().catch(() => {});
   }));
 
+  // ------------------------------------------------------------------ short films: the shot strip seeks the film and follows playback
+  $$(".short").forEach((art) => {
+    const v = $("video", art), shots = $$(".shots button", art), starts = shots.map((b) => +b.dataset.t);
+    if (near) near.observe(v); else lazySrc(v);
+    let curShot = -1, raf = 0;
+    const mark = () => {
+      if (v.readyState < 1) return;   // before the metadata, currentTime is still 0 and would light shot 1
+      const t = v.currentTime; let i = starts.length - 1;
+      while (i > 0 && starts[i] > t + 0.01) i--;
+      if (i !== curShot) { shots.forEach((b, k) => { b.classList.toggle("on", k === i); if (k === i) b.setAttribute("aria-current", "true"); else b.removeAttribute("aria-current"); }); curShot = i; }
+      const end = i + 1 < starts.length ? starts[i + 1] : (v.duration || starts[i] + 1);
+      shots[i].style.setProperty("--fill", (Math.min(1, Math.max(0, (t - starts[i]) / (end - starts[i]))) * 100).toFixed(2) + "%");
+    };
+    const loop = () => { mark(); raf = requestAnimationFrame(loop); };
+    v.addEventListener("play", () => { cancelAnimationFrame(raf); loop(); });
+    v.addEventListener("pause", () => { cancelAnimationFrame(raf); mark(); });
+    v.addEventListener("seeked", mark);
+    shots.forEach((b, i) => {
+      b.tabIndex = i ? -1 : 0;
+      b.addEventListener("focus", () => shots.forEach((o) => (o.tabIndex = o === b ? 0 : -1)));   // the focused shot, however reached, is the tab stop
+      b.addEventListener("click", () => {   // play inside the click (autoplay rules)
+        lazySrc(v);
+        const at = starts[i] + 0.02;
+        v.currentTime = at;   // before the metadata this sets the start position, as the film's chapter buttons do
+        if (v.readyState < 1) v.addEventListener("loadedmetadata", () => { if (Math.abs(v.currentTime - at) > 0.5) v.currentTime = at; }, { once: true });
+        v.play().catch(() => {});
+      });
+      b.addEventListener("keydown", (e) => {   // one tab stop per strip; arrows, Home and End move between shots
+        if (e.altKey || e.ctrlKey || e.metaKey) return;
+        const k = { ArrowLeft: i - 1, ArrowRight: i + 1, Home: 0, End: shots.length - 1 }[e.key];
+        if (k == null || k < 0 || k >= shots.length) return;
+        e.preventDefault(); shots[k].focus();
+      });
+    });
+  });
+
   // ------------------------------------------------------------------ speed chart (one axis, direct labels)
   const sp = $("#speed-svg");
   if (sp) {
@@ -186,13 +222,20 @@
     });
   }
 
-  // ------------------------------------------------------------------ tooltips (vote bar) and copy
+  // ------------------------------------------------------------------ tooltips (vote bar, shot strips) and copy
   const tip = $(".tip");
   $$("[data-tip]").forEach((m) => {
-    const show = (x, y) => { tip.textContent = m.dataset.tip; tip.style.left = x + "px"; tip.style.top = y + "px"; tip.classList.add("on"); };
-    m.addEventListener("pointermove", (e) => show(e.clientX, e.clientY));
+    const show = (x, y) => {
+      tip.textContent = m.dataset.tip;
+      const w = tip.offsetWidth, W = document.documentElement.clientWidth;   // keep the centred box inside the window
+      tip.style.left = Math.min(W - w / 2 - 8, Math.max(w / 2 + 8, x)) + "px"; tip.style.top = y + "px"; tip.classList.add("on");
+    };
+    m.addEventListener("pointermove", (e) => { if (e.pointerType !== "touch") show(e.clientX, e.clientY); });
     m.addEventListener("pointerleave", () => tip.classList.remove("on"));
-    m.addEventListener("focus", () => { const r = m.getBoundingClientRect(); show(r.left + r.width / 2, r.top); });
+    m.addEventListener("focus", () => {   // keyboard focus only: a tap focuses too, and its tip would stay over the playing film
+      if (!m.matches(":focus-visible")) return;
+      const r = m.getBoundingClientRect(); show(r.left + r.width / 2, r.top);
+    });
     m.addEventListener("blur", () => tip.classList.remove("on"));
   });
   $$("[data-copy]").forEach((b) => b.addEventListener("click", () => {
