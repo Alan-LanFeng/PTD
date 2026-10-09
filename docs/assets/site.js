@@ -175,6 +175,7 @@
   $$(".short").forEach((art) => {
     const v = $("video", art), shots = $$(".shots button", art), starts = shots.map((b) => +b.dataset.t);
     if (near) near.observe(v); else lazySrc(v);
+    if (!shots.length) return;   // a film without a shot strip only needs the lazy load
     let curShot = -1, raf = 0;
     const mark = () => {
       if (v.readyState < 1) return;   // before the metadata, currentTime is still 0 and would light shot 1
