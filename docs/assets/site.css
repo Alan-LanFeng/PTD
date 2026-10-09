@@ -191,7 +191,7 @@ dialog#viewer::backdrop { background: rgba(0,0,0,.82); }
 .tabs button[aria-selected="true"] { background: var(--light); color: #000; border-color: var(--light); }
 
 /* ---------------------------------------------------------------- short films */
-.k-text { background: var(--p0); } .k-frame { background: var(--p2); } .k-ref { background: var(--p3); } .k-card { background: #2e2e2e; box-shadow: inset 0 0 0 1px #6E6C68; }
+.k-text { background: var(--p0); } .k-frame { background: var(--p2); } .k-ref { background: var(--p3); } .k-key { background: var(--p1); } .k-card { background: #2e2e2e; box-shadow: inset 0 0 0 1px #6E6C68; }
 .shots-key { flex-wrap: wrap; row-gap: 8px; margin: 0 0 40px; }
 .short { padding: 40px 0; border-top: 1px solid #222; }
 .short-media video { width: 100%; aspect-ratio: 16 / 9; border-radius: 4px; background: #050505; }

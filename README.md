@@ -45,3 +45,5 @@ npx http-server docs -p 8000 -a 127.0.0.1 -c-1   # then open http://localhost:80
 - Music, all under the Mixkit Stock Music Free License: "Sonor #2" by Eugenio Mininni (project film); "Classical 7", "Fun and Games" and
   "Little Bells" (The Open Window); "Skyline" by Eugenio Mininni (Pebble No. 47).
 - The Open Window is adapted from the short story by Saki (1914), in the public domain.
+- Erlang Shen, reproduced: the keyframes, script and music come from 《二郎显圣真君》 by 昔年 on Douyin, made with LibTV; the music is
+  that film's soundtrack with the vocals removed.
