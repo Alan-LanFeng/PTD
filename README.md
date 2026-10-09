@@ -7,7 +7,7 @@
 
 <sup>1</sup>EPFL &nbsp;&nbsp; <sup>2</sup>NVIDIA &nbsp;&nbsp; <sup>3</sup>Stanford University
 
-[**Project page**](https://alan-lanfeng.github.io/PTD/) &nbsp;·&nbsp; **Paper** (coming soon) &nbsp;·&nbsp; **Code** (coming soon) &nbsp;·&nbsp; [**Citation**](#citation)
+[**Project page**](https://alan-lanfeng.github.io/PTD/) &nbsp;·&nbsp; [**Paper**](https://arxiv.org/abs/2610.11498) &nbsp;·&nbsp; **Code** (coming soon) &nbsp;·&nbsp; [**Citation**](#citation)
 
 </div>
 
@@ -29,12 +29,12 @@ npx http-server docs -p 8000 -a 127.0.0.1 -c-1   # then open http://localhost:80
 ## Citation
 
 ```bibtex
-@misc{feng2026ptd,
-  title  = {Parametric Trajectory Distillation for Few-Step Video Generation},
-  author = {Feng, Lan and Karkus, Peter and Igl, Maximilian and Berner, Julius and Chen, Yuxiao and
-            Tan, Shuhan and Alahi, Alexandre and Ivanovic, Boris and Pavone, Marco},
-  year   = {2026},
-  note   = {Under review}
+@article{feng2026ptd,
+  title   = {Parametric Trajectory Distillation for Few-Step Video Generation},
+  author  = {Feng, Lan and Karkus, Peter and Igl, Maximilian and Berner, Julius and Chen, Yuxiao and
+             Tan, Shuhan and Alahi, Alexandre and Ivanovic, Boris and Pavone, Marco},
+  journal = {arXiv preprint arXiv:2610.11498},
+  year    = {2026}
 }
 ```
 
